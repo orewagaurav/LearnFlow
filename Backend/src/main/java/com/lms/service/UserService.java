@@ -17,22 +17,23 @@ public class UserService {
     private UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public User createUser(User user) {
         user.setCreatedAt(LocalDateTime.now());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList("USER"));
+        user.setRoles(Arrays.asList("USER", "INSTRUCTOR"));
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         return userRepository.findByUserName(username);
     }
 
-    public User updateUser(User user){
+    public User updateUser(User user) {
         return userRepository.save(user);
     }
 }
